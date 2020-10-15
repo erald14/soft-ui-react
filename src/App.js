@@ -1,13 +1,11 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import Alert from "./kirin-ui/components/Alerts/Alerts";
+import BlogCard1 from "./kirin-ui/components/Cards/BlogCard1/BlogCard1";
 function App() {
   return (
     <>
-      <Alert />
-      <Alert />
-      <Alert type="success" text="wtf" />
+      <BlogCard1 text="Comments" number="33" />
     </>
   );
 }
