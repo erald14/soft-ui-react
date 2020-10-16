@@ -11,6 +11,27 @@ bulk of the card's content.`,
   title = "We partnered up with Google",
   user = "Jo J. Moore",
   img = "../..//assets/img/blog/blog-article-2.jpg",
+  avatar = "../../assets/img/team/profile-picture-2.jpg",
+  onAvatarClick = () => {},
+  isOptions = true,
+  isSave = true,
+  onSave = () => {},
+  saveText = "Save",
+  isShare = () => {},
+  shareText = "Share",
+  onShare = () => {},
+  isComments = true,
+  comments = 123,
+  onClickComments = () => {},
+  isVoting = true,
+  onUpvote = () => {},
+  onDownVote = () => {},
+  upvotes = 123,
+  downvotes = 123123,
+  options = [
+    { icon: "fas fa-edit", text: "Edit", onClick: () => {} },
+    { icon: "fa fa-trash", text: "Delete", onClick: () => {} },
+  ],
 }) {
   return (
     <div class="col-12 col-md-10">
@@ -20,7 +41,7 @@ bulk of the card's content.`,
             <div class="media d-flex align-items-center justify-content-between">
               <div class="post-group">
                 <a
-                  href="#"
+                  onClick={onAvatarClick}
                   data-toggle="tooltip"
                   data-placement="top"
                   title="23k followers"
@@ -28,75 +49,91 @@ bulk of the card's content.`,
                 >
                   <img
                     class="avatar-sm mr-2 img-fluid rounded-circle"
-                    src="../../assets/img/team/profile-picture-2.jpg"
+                    src={avatar}
                     alt="Jose portrait"
                   />{" "}
                   {user}
                 </a>
               </div>
               <div class="d-flex align-items-center">
-                <div class="btn-group">
-                  <button
-                    class="btn btn-link border-0 dropdown-toggle dropdown-toggle-split m-0 p-0"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    <span class="icon icon-sm">
-                      <span class="fas fa-ellipsis-h icon-secondary"></span>
-                    </span>
-                    <span class="sr-only">Toggle Dropdown</span>
-                  </button>
-                  <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">
-                      <span class="fas fa-edit mr-2"></span>
-                      Edit post
-                    </a>
-                    <a class="dropdown-item text-danger" href="#">
-                      <span class="fa fa-trash mr-2" aria-hidden="true"></span>
-                      Delete post
-                    </a>
+                {isOptions && (
+                  <div class="btn-group">
+                    <button
+                      class="btn btn-link border-0 dropdown-toggle dropdown-toggle-split m-0 p-0"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      <span class="icon icon-sm">
+                        <span class="fas fa-ellipsis-h icon-secondary"></span>
+                      </span>
+                      <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <div class="dropdown-menu">
+                      {options.map((option) => {
+                        return (
+                          <a class="dropdown-item" onClick={option.onClick}>
+                            <span class={option.icon + " mr-2"}></span>
+                            {option.text}
+                          </a>
+                        );
+                      })}
+                    </div>
                   </div>
-                </div>
+                )}{" "}
               </div>
             </div>
           </div>
-          <img
-            src="../../assets/img/blog/blog-article-1.jpg"
-            class="card-img-top rounded"
-            alt="Webdeveloper desk"
-          />
+          <img src={img} class="card-img-top rounded" alt="" />
         </div>
         <div class="card-body py-4">
-          <a href="#">
-            <h3 class="h4 my-4">List of public corporations</h3>
+          <a>
+            <h3 class="h4 my-4">{title}</h3>
           </a>
-          <p class="card-text mb-4">
-            All of the world's 10 largest companies as measured by market
-            capitalization are American. Market capitalization is the total
-            value of a company's entire purchased shares of stock...
-          </p>
+          <p class="card-text mb-4">{body}</p>
         </div>
         <div class="card-footer pt-0">
           <div class="d-flex flex-wrap flex-lg-nowrap align-items-center justify-content-between">
-            <div class="post-details mb-3 mb-lg-0">
-              <button class="btn btn-sm btn-primary animate-hover mr-2">
-                <span class="fas fa-arrow-up mr-2 animate-up-2"></span>4
-              </button>
-              <button class="btn btn-sm btn-primary text-danger animate-hover">
-                <span class="fas fa-arrow-down mr-2 animate-down-2"></span>1
-              </button>
-            </div>
+            {isVoting && (
+              <div class="post-details mb-3 mb-lg-0">
+                <button
+                  onClick={onUpvote}
+                  class="btn btn-sm btn-primary animate-hover mr-2"
+                >
+                  <span class="fas fa-arrow-up mr-2 animate-up-2"></span>
+                  {upvotes}
+                </button>
+                <button
+                  onClick={onDownVote}
+                  class="btn btn-sm btn-primary text-danger animate-hover"
+                >
+                  <span class="fas fa-arrow-down mr-2 animate-down-2"></span>
+                  {downvotes}
+                </button>
+              </div>
+            )}
             <div class="post-meta">
-              <a class="text-dark mr-3" href="#">
-                <span class="far fa-comments mr-2"></span>33.7k
-              </a>
-              <button class="btn mr-3 btn-link text-black border-0">
-                <span class="fas fa-share mr-2"></span>Share
-              </button>
-              <button class="btn btn-primary">
-                <span class="far fa-save mr-2"></span>Save
-              </button>
+              {isComments && (
+                <a class="text-dark mr-3" onClick={onClickComments}>
+                  <span class="far fa-comments mr-2"></span>
+                  {comments}
+                </a>
+              )}
+              {isShare && (
+                <button
+                  onClick={onShare}
+                  class="btn mr-3 btn-link text-black border-0"
+                >
+                  <span class="fas fa-share mr-2"></span>
+                  {shareText}
+                </button>
+              )}
+              {isSave && (
+                <button onClick={onSave} class="btn btn-primary">
+                  <span class="far fa-save mr-2"></span>
+                  {saveText}
+                </button>
+              )}
             </div>
           </div>
         </div>
